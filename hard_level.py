@@ -3,7 +3,6 @@ from typing import Union, List
 
 class RingElement:
     """Базовый класс для элементов колец: целых чисел и полиномов."""
-
     def __init__(self, data: Union[int, List[float]]):
         """
         data:
@@ -42,7 +41,6 @@ def _gcd_two_integers(a: int, b: int) -> int:
     Returns:
         НОД a и b
     """
-
     a, b = abs(a), abs(b)
     while b != 0:
         a, b = b, a % b
@@ -60,32 +58,22 @@ def _polynomial_division(dividend: List[float], divisor: List[float]):
     """
     dividend = [element for element in dividend]
     divisor = [element for element in divisor]
-
     while len(dividend) > 1 and abs(dividend[-1]) < 1e-10: dividend.pop()
     while len(divisor) > 1 and abs(divisor[-1]) < 1e-10: divisor.pop()
-
     if all(abs(c) < 1e-10 for c in divisor): raise ValueError("Ошибка деления на ноль")
-
     quotient = []
-
     while len(dividend) >= len(divisor):
         if all(abs(c) < 1e-10 for c in dividend):
             break
-
         coeff = dividend[-1] / divisor[-1]
         quotient.append(coeff)
-
         degree_diff = len(dividend) - len(divisor)
         for i in range(len(divisor)):
             dividend[degree_diff + i] -= coeff * divisor[i]
-
         dividend.pop()
-
     quotient.reverse()
-
     remainder = dividend if dividend else [0]
     quotient = quotient if quotient else [0]
-
     return quotient, remainder
 
 
@@ -115,7 +103,7 @@ def _gcd_two_polynomials(poly1: List[float], poly2: List[float]) -> List[float]:
     return a
 
 
-def gcd_ring_elements(elements: List[RingElement]) -> RingElement:
+def gcd_ring_elements(elements: List[RingElement]):
     """
     Возвращает порождающий главного идеала, порождённого заданными элементами.
     - Для Z: НОД целых чисел.
